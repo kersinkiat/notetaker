@@ -4,12 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Welcome to note taker!"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:src="@android:drawable/btn_star_big_on"
+        android:layout_gravity="center_horizontal"/>
+
+    <EditText
+        android:id="@+id/edit_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:hint="Username"
+        android:inputType="text"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:lines="1"/>
+
+    <EditText
+        android:id="@+id/edit_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:lines="1"/>
+
+    <Button
+        android:id="@+id/btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hi" />
+        android:text="login"
+        android:layout_gravity="center"
+        android:textSize="20sp"/>
+
 
 </LinearLayout>

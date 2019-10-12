@@ -1,0 +1,209 @@
+Index: app/src/main/res/layout/activity_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_main.xml	(revision b259452c53db3b9f12e9afe771907396364c70f5)
++++ app/src/main/res/layout/activity_main.xml	(date 1570855237473)
+@@ -4,12 +4,52 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    android:gravity="center"
++    android:orientation="vertical"
+     tools:context=".MainActivity">
+ 
+     <TextView
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:text="Welcome to note taker!"
++        android:textSize="20sp"
++        android:gravity="center"
++        android:layout_marginTop="20dp"/>
++
++    <ImageView
++        android:layout_width="100dp"
++        android:layout_height="70dp"
++        android:src="@android:drawable/btn_star_big_on"
++        android:layout_gravity="center_horizontal"/>
++
++    <EditText
++        android:id="@+id/edit_username"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_margin="20dp"
++        android:hint="Username"
++        android:inputType="text"
++        android:singleLine="true"
++        android:maxLines="1"
++        android:lines="1"/>
++
++    <EditText
++        android:id="@+id/edit_password"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_margin="20dp"
++        android:hint="Password"
++        android:inputType="textPassword"
++        android:singleLine="true"
++        android:maxLines="1"
++        android:lines="1"/>
++
++    <Button
++        android:id="@+id/btn_login"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:text="Hi" />
++        android:text="login"
++        android:layout_gravity="center"
++        android:textSize="20sp"/>
++
+ 
+ </LinearLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_add_note.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_add_note.xml	(date 1570853974264)
++++ app/src/main/res/layout/activity_add_note.xml	(date 1570853974264)
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".AddNoteActivity">
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/newtask/AddNoteActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/newtask/AddNoteActivity.java	(date 1570853974216)
++++ app/src/main/java/com/example/newtask/AddNoteActivity.java	(date 1570853974216)
+@@ -0,0 +1,14 @@
++package com.example.newtask;
++
++import androidx.appcompat.app.AppCompatActivity;
++
++import android.os.Bundle;
++
++public class AddNoteActivity extends AppCompatActivity {
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_add_note);
++    }
++}
+Index: .idea/.name
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.name	(date 1570851426081)
++++ .idea/.name	(date 1570851426081)
+@@ -0,0 +1,1 @@
++NewTask
+\ No newline at end of file
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision b259452c53db3b9f12e9afe771907396364c70f5)
++++ app/src/main/AndroidManifest.xml	(date 1570853974203)
+@@ -9,6 +9,8 @@
+         android:roundIcon="@mipmap/ic_launcher_round"
+         android:supportsRtl="true"
+         android:theme="@style/AppTheme">
++        <activity android:name=".AddNoteActivity"></activity>
++        <activity android:name=".HomeActivity" />
+         <activity android:name=".MainActivity">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+Index: app/src/main/java/com/example/newtask/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/newtask/MainActivity.java	(revision b259452c53db3b9f12e9afe771907396364c70f5)
++++ app/src/main/java/com/example/newtask/MainActivity.java	(date 1570855237438)
+@@ -3,12 +3,32 @@
+ import androidx.appcompat.app.AppCompatActivity;
+ 
+ import android.os.Bundle;
++import android.widget.Button;
++import android.widget.EditText;
+ 
+ public class MainActivity extends AppCompatActivity {
+ 
++    private EditText editusername,editpassword;
++    private Button btnlogin;
++
++    private String username="abc",password="12345";
++
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_main);
++        findViews();
++        setListeners();
++    }
++
++    private void findViews(){
++        editusername = findViewById(R.id.edit_username);
++        editpassword = findViewById(R.id.edit_password);
++        btnlogin = findViewById(R.id.btn_login);
+     }
++
++    private void setListeners(){
++        btnlogin.setOnClickListener();
++    }
++
+ }
+Index: app/src/main/res/layout/activity_home.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_home.xml	(date 1570852711028)
++++ app/src/main/res/layout/activity_home.xml	(date 1570852711028)
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".HomeActivity">
++
++</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/newtask/HomeActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/newtask/HomeActivity.java	(date 1570852354717)
++++ app/src/main/java/com/example/newtask/HomeActivity.java	(date 1570852354717)
+@@ -0,0 +1,14 @@
++package com.example.newtask;
++
++import androidx.appcompat.app.AppCompatActivity;
++
++import android.os.Bundle;
++
++public class HomeActivity extends AppCompatActivity {
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_home);
++    }
++}
