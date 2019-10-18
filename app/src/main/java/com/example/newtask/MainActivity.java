@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
+import javax.swing.text.View;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText editusername,editpassword;
@@ -28,7 +30,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setListeners(){
-        btnlogin.setOnClickListener();
-    }
+        btnlogin.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                String inputUsername = editusername.getText().toString();
+                String inputPassword = editpassword.getText().toString();
 
+                if (inputUsername.equals(username)&&inputPassword.equals(password)){
+                    Toast.makeText( cotext: MainActivity.this,text: "Login successful",Toast.LENGTH_SHORT).show();
+
+                    Intent i=new Intent(packageContext:MainActivity.this,HomeActivity.class);
+                    startActivity(i);
+                    finish();
+                }else{
+                    Toast.makeText(context: MainActivity.this,text:"Login fail",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 }
